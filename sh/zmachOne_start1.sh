@@ -62,6 +62,36 @@ chmod u+x  /home/"$USER"/machina/sh/*.sh
 chmod u+x  /home/"$USER"/machina/jl/*.jl
 chmod u+x  /home/"$USER"/machina/direct/*.sh
 
+
+source  /home/"$USER"/machina/sh/common_machina.sh
+
+MY_PROJECT_ID=$(gcloud projects list --filter="projectId~$vmach_gcprojprefix AND lifecycleState:ACTIVE" --format="value(projectId)")
+gcloud config set project "$MY_PROJECT_ID"
+CURRENT_ACCOUNT=$(gcloud iam service-accounts list  --format="value(email)")
+
+# personalizacion del curso
+echo personalizacion
+if [ ! -e /home/"$USER"/.curso ]; then
+  /usr/bin/gcloud secrets describe  ds-curso
+  if [ $? -eq 0 ]; then
+    cursoarch=$(/usr/bin/gcloud secrets versions access latest --secret="ds-curso")
+	echo "$cursoarch"
+    if [  -f /home/"$USER"/machina/curso/"$cursoarch" ]; then
+      echo  "$cursoarch"  >  /home/"$USER"/.curso
+    fi
+  fi
+fi
+
+
+if [ -e /home/"$USER"/.curso ]; then
+  cursoarch=$(cat /home/"$USER"/.curso)
+  if [  -f /home/"$USER"/machina/curso/"$cursoarch" ]; then
+    cp  /home/"$USER"/machina/curso/"$cursoarch"  /home/"$USER"/machina/curso/common_curso.sh
+  fi
+fi
+
+
+
 # despersonalizacion
 cp /home/"$USER"/machina/sh/common_machina.sh  "$vmach_bindir"/common.sh
 cat /home/"$USER"/machina/curso/common_curso.sh  >>  "$vmach_bindir"/common.sh
