@@ -67,10 +67,9 @@ CURRENT_ACCOUNT=$(gcloud iam service-accounts list  --format="value(email)")
 # personalizacion del curso
 echo personalizacion
 if [ ! -e /home/"$USER"/.curso ]; then
-  /usr/bin/gcloud secrets describe  ds-curso
+  gcloud secrets describe  ds-curso
   if [ $? -eq 0 ]; then
-    cursoarch=$(/usr/bin/gcloud secrets versions access latest --secret="ds-curso")
-    echo "$cursoarch"  > caquita.txt
+    cursoarch=$(gcloud secrets versions access latest --secret="ds-curso")
     echo "$cursoarch"
     if [  -f /home/"$USER"/machina/curso/"$cursoarch" ]; then
       echo  "$cursoarch"  >  /home/"$USER"/.curso
