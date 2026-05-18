@@ -4,8 +4,9 @@
 # corre en  instance-instalacion, llamado desde Cloud Shell
 # instance-instalacion esta recien creada, completamente virgen
 
-cursoarch="$1"
-echo  "$cursoarch"  > /home/"$USER"/ca1.txt
+vmach_github_user="$1"
+vmach_github_repo="$2"
+cursoarch="$3"
 # bug en Ubuntu 26.04
 sudo update-alternatives --set sudo /usr/bin/sudo.ws
 
@@ -30,9 +31,10 @@ sudo chmod 0440 /etc/sudoers.d/ds
 
 
 # log in  con usuario ds
+export vmach_github_user
+export vmach_github_repo
 export cursoarch
-sudo --preserve-env=cursoarch  su ds
-echo  "$cursoarch"  > /home/"$USER"/ca2.txt
+sudo --preserve-env=vmach_github_user,vmach_github_repo,cursoarch   su ds
 
 sleep 5
 cd /home/"$USER" || exit 1
@@ -40,17 +42,8 @@ cd /home/"$USER" || exit 1
 
 sudo  DEBIAN_FRONTEND=noninteractive  apt-get update
 
-rm -rf  "$vmach_bindir"
-mkdir  -p  "$vmach_bindir"
-mkdir  -p  "$vmach_logdir"
-
 
 sudo  apt-get --yes  install  git rsync htop
-
-
-# parametros fundamentales
-export vmach_github_user="labo-imp"
-export vmach_github_repo="cloudARos"
 
 
 # clono el repo de instalacion
@@ -77,7 +70,8 @@ if [ ! -e /home/"$USER"/.curso ]; then
   /usr/bin/gcloud secrets describe  ds-curso
   if [ $? -eq 0 ]; then
     cursoarch=$(/usr/bin/gcloud secrets versions access latest --secret="ds-curso")
-	echo "$cursoarch"
+    echo "$cursoarch"  > caquita.txt
+    echo "$cursoarch"
     if [  -f /home/"$USER"/machina/curso/"$cursoarch" ]; then
       echo  "$cursoarch"  >  /home/"$USER"/.curso
     fi
@@ -93,10 +87,17 @@ if [ -e /home/"$USER"/.curso ]; then
 fi
 
 
+source  /home/"$USER"/machina/sh/common_machina.sh
+
+rm -rf  "$vmach_bindir"
+mkdir  -p  "$vmach_bindir"
+mkdir  -p  "$vmach_logdir"
+
 
 # despersonalizacion
 cp /home/"$USER"/machina/sh/common_machina.sh  "$vmach_bindir"/common.sh
 cat /home/"$USER"/machina/curso/common_curso.sh  >>  "$vmach_bindir"/common.sh
+
 
 # copia de direct
 cp /home/"$USER"/machina/direct/*   "$vmach_bindir"/
