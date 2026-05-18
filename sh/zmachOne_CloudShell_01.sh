@@ -41,6 +41,8 @@ fi
 cp  /home/"$USER"/machina/curso/"$cursoarch"  /home/"$USER"/machina/curso/common_curso.sh
 
 
+source /home/"$USER"/machina/sh/common_machina.sh
+
 # despersonalizacion
 cp /home/"$USER"/machina/sh/common_machina.sh   "$vmach_bindir"/common.sh
 cat /home/"$USER"/machina/curso/common_curso.sh  >>  "$vmach_bindir"/common.sh
@@ -112,14 +114,26 @@ gcloud --quiet --project="$MY_PROJECT_ID" services enable  compute.googleapis.co
 printf "\ndando permisos de Secret Manager\n"
 gcloud --quiet --project="$MY_PROJECT_ID" services enable  secretmanager.googleapis.com
 
+MY_PROJECT_ID=$(gcloud projects list --filter="projectId~$vcur_gcprojprefix AND lifecycleState:ACTIVE" --format="value(projectId)")
+gcloud config set project "$MY_PROJECT_ID"
 
 # clave usuario ds
 echo -n "Aristoteles01" | gcloud secrets  create  ds-password  --data-file=-
 
 CURRENT_ACCOUNT=$(gcloud iam service-accounts list  --format="value(email)")
+gcloud projects add-iam-policy-binding  "$MY_PROJECT_ID" \
+  --member="serviceAccount:$CURRENT_ACCOUNT" \
+  --role="roles/secretmanager.admin" 
+
+CURRENT_ACCOUNT=$(gcloud iam service-accounts list  --format="value(email)")
 gcloud secrets add-iam-policy-binding ds-password \
    --member="serviceAccount:$CURRENT_ACCOUNT" \
    --role="roles/secretmanager.secretAccessor"
+
+CURRENT_ACCOUNT=$(gcloud iam service-accounts list  --format="value(email)")
+gcloud projects add-iam-policy-binding "$MY_PROJECT_ID" \
+  --member="serviceAccount:$CURRENT_ACCOUNT" \
+  --role="roles/compute.instanceAdmin.v1"
 
 
 # reglas del FireWall
