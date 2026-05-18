@@ -114,10 +114,18 @@ gcloud --quiet --project="$MY_PROJECT_ID" services enable  compute.googleapis.co
 printf "\ndando permisos de Secret Manager\n"
 gcloud --quiet --project="$MY_PROJECT_ID" services enable  secretmanager.googleapis.com
 
-MY_PROJECT_ID=$(gcloud projects list --filter="projectId~$vcur_gcprojprefix AND lifecycleState:ACTIVE" --format="value(projectId)")
+MY_PROJECT_ID=$(gcloud projects list --filter="projectId~$vmach_gcprojprefix AND lifecycleState:ACTIVE" --format="value(projectId)")
 gcloud config set project "$MY_PROJECT_ID"
 
 # clave usuario ds
+
+
+gcloud secrets describe ds-password
+if [ $? -eq 0 ]; then
+  # creo de CERO el secreto
+  gcloud --quiet secrets delete ds-password
+fi
+
 echo -n "Aristoteles01" | gcloud secrets  create  ds-password  --data-file=-
 
 CURRENT_ACCOUNT=$(gcloud iam service-accounts list  --format="value(email)")
@@ -153,6 +161,9 @@ gcloud compute firewall-rules create xrdp \
   --target-tags=rdp-server  
 
 
+
+MY_PROJECT_ID=$(gcloud projects list --filter="projectId~$vmach_gcprojprefix AND lifecycleState:ACTIVE" --format="value(projectId)")
+gcloud config set project "$MY_PROJECT_ID"
 gcloud secrets describe ds-curso
 if [ ! $? -eq 0 ]; then
   # creo de CERO el secreto
