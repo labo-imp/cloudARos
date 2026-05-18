@@ -1,6 +1,8 @@
 #!/bin/bash
 # fecha revision   2026-05-18  12:02
 
+# common_original
+
 vcur_gcprojprefix="proj-austral-"
 vcur_gcprojname="Austral Labo1"
 
