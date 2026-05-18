@@ -36,25 +36,6 @@ fi
 cp  /home/"$USER"/machina/curso/"$cursoarch"  /home/"$USER"/machina/curso/common_curso.sh
 
 
-gcloud secrets describe ds-curso
-if [ ! $? -eq 0 ]; then
-  # creo de CERO el secreto
-  echo -n "$cursoarch" | gcloud secrets  create  ds-curso  --data-file=-
-else
-  # actualizo el secreto
-  echo -n "$cursoarch" | gcloud secrets  versions add    ds-curso  --data-file=-
-fi
-
-
-CURRENT_ACCOUNT=$(gcloud iam service-accounts list  --format="value(email)")
-gcloud secrets add-iam-policy-binding ds-curso \
-   --member="serviceAccount:$CURRENT_ACCOUNT" \
-   --role="roles/secretmanager.secretAccessor" \
-   --project="$MY_PROJECT_ID"
-
-
-
-
 # en el archivo  ~/.cruso esta el nombre del  curso
 echo  "$cursoarch"  >  /home/"$USER"/.curso
 
@@ -131,6 +112,26 @@ CURRENT_ACCOUNT=$(gcloud iam service-accounts list  --format="value(email)")
 gcloud projects add-iam-policy-binding "$MY_PROJECT_ID" \
   --member="serviceAccount:$CURRENT_ACCOUNT" \
   --role="roles/compute.instanceAdmin.v1"
+
+
+
+
+gcloud secrets describe ds-curso
+if [ ! $? -eq 0 ]; then
+  # creo de CERO el secreto
+  echo -n "$cursoarch" | gcloud secrets  create  ds-curso  --data-file=-
+else
+  # actualizo el secreto
+  echo -n "$cursoarch" | gcloud secrets  versions add    ds-curso  --data-file=-
+fi
+
+
+CURRENT_ACCOUNT=$(gcloud iam service-accounts list  --format="value(email)")
+gcloud secrets add-iam-policy-binding ds-curso \
+   --member="serviceAccount:$CURRENT_ACCOUNT" \
+   --role="roles/secretmanager.secretAccessor" \
+   --project="$MY_PROJECT_ID"
+
 
 
 
