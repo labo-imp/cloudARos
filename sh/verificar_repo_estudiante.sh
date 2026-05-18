@@ -100,16 +100,6 @@ fi
 source  /home/"$USER"/machina/sh/common_machina.sh
 source  /home/"$USER"/buckets/b1/estudiante_secretos.sh
 
-if [ ! -f /home/"$USER"/machina/r/"$vcur_kaggle_scriptprueba" ]; then
-    printf "\nError : No existe el archivo  "$vmach_bindir"/""$vcur_kaggle_scriptprueba\n\n"
-    exit 1
-fi
-
-cp /home/"$USER"/machina/r/"$vcur_kaggle_scriptprueba"  "$vcur_repo_estudiante_destino"/"$vcur_github_catedra_repo"/"$vcur_repo_check_directory"/
-if [ ! $? -eq 0 ]; then 
-  printf "\nError : No se pudo copiar "$vmach_bindir"/$vcur_kaggle_scriptprueba\n\n"
-  exit 1
-fi
 
 cd  "$vcur_repo_estudiante_destino"/"$vcur_github_catedra_repo"/  || exit 1
 
@@ -228,19 +218,7 @@ fi
 # cargo lo nuevo
 git checkout "$MIHOST"
 
-cp /home/"$USER"/machina/r/"$vcur_kaggle_scriptprueba"  "$vcur_repo_estudiante_destino"/$vcur_github_catedra_repo/$vcur_repo_check_directory/
-if [ ! $? -eq 0 ]; then 
-  printf "\nError : No se pudo copiar "$vmach_bindir"/$vcur_kaggle_scriptprueba\n\n"
-  exit 1
-fi
-
-git add "$vcur_repo_estudiante_destino"/$vcur_github_catedra_repo/$vcur_repo_check_directory/"$vcur_kaggle_scriptprueba"
-if [ ! $? -eq 0 ]; then 
-  printf "\nFatal Error : git add "$vcur_repo_estudiante_destino"/$vcur_github_catedra_repo/$vcur_repo_check_directory/$vcur_kaggle_scriptprueba  \n\n"
-  exit 1
-fi
-
-git commit -m "$vcur_repo_check_directory/$vcur_kaggle_scriptprueba"
+git commit -m "$vcur_repo_check_directory"
 
 
 git push   origin  "$MIHOST"
