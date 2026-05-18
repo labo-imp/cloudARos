@@ -37,10 +37,12 @@ chmod u+x  /home/"$USER"/machina/jl/*.jl
 chmod u+x  /home/"$USER"/machina/direct/*.sh
 
 # personalizacion del curso
+echo personalizacion
 if [ ! -e /home/"$USER"/.curso ]; then
-  /usr/bin/gcloud secrets describe ds-curso
+  /usr/bin/gcloud secrets describe  ds-curso
   if [ $? -eq 0 ]; then
     cursoarch=$(/usr/bin/gcloud secrets versions access latest --secret="ds-curso")
+	echo "$cursoarch"
     if [  -f /home/"$USER"/machina/curso/"$cursoarch" ]; then
       echo  "$cursoarch"  >  /home/"$USER"/.curso
     fi
