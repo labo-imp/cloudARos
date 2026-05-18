@@ -87,8 +87,8 @@ gcloud beta compute instances create desktop-jr \
 
 
 
-printf  "\n\nEsperando 120 segundos para apagar desktop-jr.\n"
-sleep 120
+printf  "\n\nEsperando 180 segundos para apagar desktop-jr.\n"
+sleep 180
 
 # detengo la  vm desktop-jr
 gcloud beta compute instances stop --async  desktop-jr \
