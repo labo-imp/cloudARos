@@ -153,6 +153,24 @@ gcloud compute firewall-rules create xrdp \
   --target-tags=rdp-server  
 
 
+gcloud secrets describe ds-curso
+if [ ! $? -eq 0 ]; then
+  # creo de CERO el secreto
+  echo -n "$cursoarch" | gcloud secrets  create  ds-curso  --data-file=-
+else
+  # actualizo el secreto
+  echo -n "$cursoarch" | gcloud secrets  versions add    ds-curso  --data-file=-
+fi
+
+
+CURRENT_ACCOUNT=$(gcloud iam service-accounts list  --format="value(email)")
+gcloud secrets add-iam-policy-binding ds-curso \
+   --member="serviceAccount:$CURRENT_ACCOUNT" \
+   --role="roles/secretmanager.secretAccessor" \
+   --project="$MY_PROJECT_ID"
+
+
+
 sleep  5
 
 
