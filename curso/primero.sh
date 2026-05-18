@@ -100,6 +100,7 @@ gcloud --quiet --project="$MY_PROJECT_ID" services enable  compute.googleapis.co
 printf "\ndando permisos de Secret Manager\n"
 gcloud --quiet --project="$MY_PROJECT_ID" services enable  secretmanager.googleapis.com
 
+CURRENT_ACCOUNT=$(gcloud iam service-accounts list  --format="value(email)")
 gcloud projects add-iam-policy-binding  "$MY_PROJECT_ID" \
   --member="serviceAccount:$CURRENT_ACCOUNT" \
   --role="roles/secretmanager.admin" 
