@@ -246,7 +246,7 @@ sleep 10
 gcloud --quiet compute ssh "$USER"@instance-instalacion \
     --zone=northamerica-northeast2-b\
     --project="$MY_PROJECT_ID" \
-    --command="bash -s $cursoarch" < /home/"$USER"/machina/sh/zmachOne_start1.sh
+    --command="bash -s $vmach_github_user vmach_github_repo $cursoarch" < /home/"$USER"/machina/sh/zmachOne_start1.sh
 
 echo "Esperando 5 segundos"
 sleep 5
