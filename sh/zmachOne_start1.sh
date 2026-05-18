@@ -5,6 +5,7 @@
 # instance-instalacion esta recien creada, completamente virgen
 
 cursoarch="$1"
+echo  "$cursoarch"  > /home/"$USER"/ca1.txt
 # bug en Ubuntu 26.04
 sudo update-alternatives --set sudo /usr/bin/sudo.ws
 
@@ -31,6 +32,7 @@ sudo chmod 0440 /etc/sudoers.d/ds
 # log in  con usuario ds
 export cursoarch
 sudo --preserve-env=cursoarch  su ds
+echo  "$cursoarch"  > /home/"$USER"/ca2.txt
 
 sleep 5
 cd /home/"$USER" || exit 1
