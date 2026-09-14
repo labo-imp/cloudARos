@@ -1,0 +1,15 @@
+[Unit]
+Description=buckets
+After=services_recrear@%i.service
+Requires=services_recrear@%i.service
+
+[Service]
+Type=forking
+ExecStart=/home/%i/machina/direct/linkear_buckets.sh
+WorkingDirectory=/home/%i/
+User=%i
+Group=%i
+ExecStartPre= /bin/sh -c 'until ping -c1 github.com; do sleep 1; done;'
+
+[Install]
+WantedBy=default.target

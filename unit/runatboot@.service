@@ -1,0 +1,17 @@
+[Unit]
+Description=runatboot
+After=buckets@%i.service
+After=services_recrear@%i.service
+Requires=buckets@%i.service
+Requires=services_recrear@%i.service
+
+[Service]
+Type=oneshot
+ExecStart=/home/%i/machina/direct/runatboot.sh
+WorkingDirectory=/home/%i/
+User=%i
+Group=%i
+ExecStartPre= /bin/sh -c 'until ping -c1 github.com; do sleep 1; done;'
+
+[Install]
+WantedBy=default.target
