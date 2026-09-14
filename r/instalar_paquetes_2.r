@@ -32,14 +32,15 @@ pak::pkg_install("AppliedDataSciencePartners/xgboostExplainer")
 pak::pkg_install( c("purrr","ps","diffobj","pkgbuild","fs","sass","mime","commonmark","tinytex"))
 pak::pkg_install("NorskRegnesentral/shapr")
 
-devtools::install_url('https://github.com/catboost/catboost/releases/download/v1.2.10/catboost-R-Linux-1.2.10.tgz', INSTALL_opts = c("--no-multiarch", "--no-test-load"))
+pak::pkg_install("catboost/catboost/catboost/R-package")
 
 pak::pkg_install("ManuelHentschel/vscDebugger")
 
 pak::pkg_install("ja-thomas/autoxgboost")
 
 Sys.setenv(NOT_CRAN = "true")
-install.packages("polars", repos = "https://community.r-multiverse.org", INSTALL_opts="--no-multiarch" )
+install.packages("polars", repos = "https://community.r-multiverse.org")
+
 
 # devtools::install_github("AnotherSamWilson/ParBayesianOptimization")
 # pak::pkg_install("liuyanguu/SHAPforxgboost")
