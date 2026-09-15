@@ -40,16 +40,22 @@ Rscript --verbose  /home/"$USER"/machina/r/instalar_paquetes_2.r  | sudo tee -a 
 fmach_bitacora   "R  packages 2b"
 
 # Paquetes Forecast
-fmach_bitacora   "R  packages 3a"
+fmach_bitacora   "R  packages forecast_1"
 Rscript --verbose  /home/"$USER"/machina/r/instalar_paquetes_forecast_1.r  | sudo tee -a "$vmach_bindir"/log.txt
+fmach_bitacora   "R  packages forecast_2"
 Rscript --verbose  /home/"$USER"/machina/r/instalar_paquetes_forecast_2.r  | sudo tee -a "$vmach_bindir"/log.txt
+fmach_bitacora   "R  packages forecast_3"
 Rscript --verbose  /home/"$USER"/machina/r/instalar_paquetes_forecast_3.r  | sudo tee -a "$vmach_bindir"/log.txt
+fmach_bitacora   "R  packages forecast_4"
 Rscript --verbose  /home/"$USER"/machina/r/instalar_paquetes_forecast_4.r  | sudo tee -a "$vmach_bindir"/log.txt
+fmach_bitacora   "R  packages forecast_5"
 Rscript --verbose  /home/"$USER"/machina/r/instalar_paquetes_forecast_5.r  | sudo tee -a "$vmach_bindir"/log.txt
+fmach_bitacora   "R  packages forecast_6"
 Rscript --verbose  /home/"$USER"/machina/r/instalar_paquetes_forecast_6.r  | sudo tee -a "$vmach_bindir"/log.txt
+fmach_bitacora   "R  packages forecast_7"
 Rscript --verbose  /home/"$USER"/machina/r/instalar_paquetes_forecast_7.r  | sudo tee -a "$vmach_bindir"/log.txt
 
-fmach_bitacora   "R  packages 3b"
+fmach_bitacora   "R  packages forecast_final"
 
 # Used  30G
 
