@@ -61,7 +61,7 @@ chmod  0600    /home/"$USER"/.jupyter/jupyter_server_config.json
 cp  /home/"$USER"/machina/py/jupyter_server_config.py   /home/"$USER"/.jupyter/jupyter_server_config.py
 
 
-
+pip install tornado==6.5.8
 sudo  cp /home/"$USER"/machina/unit/jupyterlab@.service   /etc/systemd/system/
 sudo  systemctl daemon-reload
 sudo  systemctl enable jupyterlab@"$USER".service
