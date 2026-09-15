@@ -41,7 +41,14 @@ fmach_bitacora   "R  packages 2b"
 
 # Paquetes Forecast
 fmach_bitacora   "R  packages 3a"
-Rscript --verbose  /home/"$USER"/machina/r/instalar_paquetes_forecast.r  | sudo tee -a "$vmach_bindir"/log.txt
+Rscript --verbose  /home/"$USER"/machina/r/instalar_paquetes_forecast_1.r  | sudo tee -a "$vmach_bindir"/log.txt
+Rscript --verbose  /home/"$USER"/machina/r/instalar_paquetes_forecast_2.r  | sudo tee -a "$vmach_bindir"/log.txt
+Rscript --verbose  /home/"$USER"/machina/r/instalar_paquetes_forecast_3.r  | sudo tee -a "$vmach_bindir"/log.txt
+Rscript --verbose  /home/"$USER"/machina/r/instalar_paquetes_forecast_4.r  | sudo tee -a "$vmach_bindir"/log.txt
+Rscript --verbose  /home/"$USER"/machina/r/instalar_paquetes_forecast_5.r  | sudo tee -a "$vmach_bindir"/log.txt
+Rscript --verbose  /home/"$USER"/machina/r/instalar_paquetes_forecast_6.r  | sudo tee -a "$vmach_bindir"/log.txt
+Rscript --verbose  /home/"$USER"/machina/r/instalar_paquetes_forecast_7.r  | sudo tee -a "$vmach_bindir"/log.txt
+
 fmach_bitacora   "R  packages 3b"
 
 # Used  30G
