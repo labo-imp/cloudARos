@@ -13,7 +13,7 @@ fmach_salir_si_no_instalado  ins_lang_pyworld_last.txt
 # Documentacion  https://jupyterlab.readthedocs.io/en/stable/getting_started/installation.html
 cd /home/"$USER" || exit 1
 source  /home/"$USER"/.venv/bin/activate
-uv cache clean
+/home/"$USER"/.local/bin/uv cache clean
 
 /home/"$USER"/.local/bin/uv pip install  pygments  oauthlib
  
